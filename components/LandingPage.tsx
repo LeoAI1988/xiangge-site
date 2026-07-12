@@ -1,0 +1,198 @@
+"use client";
+
+import { ArrowDown, ArrowRight, Check, CircleCheckBig, Download, Menu, Sparkles, X } from "lucide-react";
+import { FormEvent, useState } from "react";
+
+const courseModules = [
+  ["01", "AI 不是工具，是你的第二个员工", "明确哪些工作交给 AI，哪些判断必须由人负责。"],
+  ["02", "拆你的业务流程", "把引流、内容、咨询、成交、交付和复盘拆成清晰节点。"],
+  ["03", "内容生产工作流", "搭建选题库、脚本库、朋友圈表达和直播复盘流程。"],
+  ["04", "客户理解与咨询方案", "整理客户信息、提炼痛点并生成方案框架。"],
+  ["05", "私域承接与成交 SOP", "沉淀私信问答、跟进节奏和成交辅助流程。"],
+  ["06", "个人知识库搭建", "让案例、问题和行业资料成为可检索的业务大脑。"],
+  ["07", "Agent、Codex 与 Skill", "从会提问升级到会分配任务，让 AI 按流程执行。"],
+  ["08", "真实业务案例复盘", "拆解 AI 如何进入香港身份、教育规划等真实场景。"],
+  ["09", "从工具到资产", "把 Prompt、模板、SOP 和 Skill 打包成复用资产。"],
+  ["10", "上线、成交与迭代", "串起短视频、直播、页面、领取、购买和复盘闭环。"],
+];
+
+const skills = [
+  "短视频选题库", "直播脚本拆解", "朋友圈成交文案", "客户画像分析", "咨询方案初稿",
+  "常见问答 SOP", "小红书笔记生成", "视频号口播稿", "知识库整理", "会议纪要提炼",
+  "竞品内容分析", "爆款标题生成", "直播复盘助手", "客户跟进提醒", "案例包装助手",
+  "课程大纲生成", "产品卖点提炼", "私域标签整理", "销售异议处理", "社群运营日历",
+  "行业周报生成", "长文转短内容", "录音转知识卡", "商业路径对比", "需求访谈提纲",
+  "方案质量检查", "个人 IP 定位", "资源库编目", "工作流诊断", "Skill 创建助手",
+];
+
+const scenarios = ["内容创作", "咨询与专业服务", "课程与知识付费", "私域运营", "个人 IP", "其他"];
+
+export function LandingPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  async function submitLead(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSubmitting(true);
+    setMessage(null);
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const payload = {
+      name: data.get("name"),
+      phone: data.get("phone"),
+      wechat: data.get("wechat"),
+      scenario: data.get("scenario"),
+      website: data.get("website"),
+      consent: data.get("consent") === "on",
+    };
+
+    try {
+      const response = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = (await response.json()) as { error?: string };
+      if (!response.ok) throw new Error(result.error || "提交失败");
+      form.reset();
+      setMessage({ type: "success", text: "老师会通过你填写的微信号添加你，请注意通过好友申请并查收资料。" });
+    } catch (error) {
+      setMessage({ type: "error", text: error instanceof Error ? error.message : "提交暂时没有成功，请稍后再试。" });
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <div className="site-shell">
+      <header className="site-header">
+        <a className="brand" href="#top" aria-label="返回首页">
+          <span className="brand-mark">翔</span>
+          <span>翔哥 AI 工作流</span>
+        </a>
+        <nav className={`nav-links ${menuOpen ? "is-open" : ""}`} aria-label="页面导航">
+          <a href="#profile" onClick={() => setMenuOpen(false)}>翔哥是谁</a>
+          <a href="#course" onClick={() => setMenuOpen(false)}>正课大纲</a>
+          <a href="#bonus" onClick={() => setMenuOpen(false)}>赠送大礼包</a>
+          <a href="#skills" onClick={() => setMenuOpen(false)}>Skill 资产库</a>
+          <a className="mobile-claim" href="#claim" onClick={() => setMenuOpen(false)}>领取赠品</a>
+        </nav>
+        <a className="header-cta" href="#claim">领取赠品</a>
+        <button className="menu-button" type="button" aria-label="打开导航" onClick={() => setMenuOpen((value) => !value)}>
+          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </header>
+
+      <main id="top">
+        <section className="hero" aria-labelledby="hero-title">
+          <div className="hero-bg" />
+          <div className="hero-grid" aria-hidden="true" />
+          <div className="hero-inner">
+            <div className="hero-system-label"><Sparkles size={15} /><span>AI BUSINESS OPERATING SYSTEM</span><i>2026</i></div>
+            <p className="eyebrow light">给有业务的人学 AI</p>
+            <h1 id="hero-title">让 AI 从一个工具，<span>变成你的业务系统。</span></h1>
+            <p className="hero-copy">不是教你多学几个软件，而是把 AI 接进引流、内容、咨询、成交和复盘，让重复工作自动运转，让经验成为复利资产。</p>
+            <div className="hero-actions">
+              <a className="button primary glow-button" href="#claim">立即领取赠品 <ArrowRight size={18} /></a>
+              <a className="button glass" href="#course">查看正课大纲</a>
+            </div>
+            <div className="hero-metrics" aria-label="核心权益">
+              <div><strong>10 节</strong><span>基础内容免费领取</span></div>
+              <div><strong>51 节</strong><span>完整目录持续更新</span></div>
+              <div><strong>30 个</strong><span>业务 Skill 资产</span></div>
+            </div>
+          </div>
+          <a className="scroll-cue" href="#profile" aria-label="继续向下浏览"><span>SCROLL TO EXPLORE</span><ArrowDown size={17} /></a>
+        </section>
+
+        <section id="profile" className="section white-section">
+          <div className="section-inner profile-layout">
+            <figure className="profile-photo"><span className="profile-photo-label">REAL BUSINESS · REAL WORKFLOW</span>
+              <img src="/xiangge-profile.jpg" alt="翔哥个人照片" />
+              <figcaption>翔哥 · AI 业务工作流实践者</figcaption>
+            </figure>
+            <div className="profile-content">
+              <p className="eyebrow">翔哥是谁</p>
+              <h2>从专业服务一线长出来的 AI 实战派</h2>
+              <p>翔哥长期从事建筑设计，后来进入香港身份、升学规划与家庭教育等专业服务领域。现在的核心方向，是把 AI 装进真实业务流程。</p>
+              <p>课程不带你在代码细节里绕圈，而是解决怎么更快做选题、拆客户、出方案、承接私域、复盘业务，并把过程沉淀成可复用资产。</p>
+              <div className="tag-list"><span>香港身份与教育规划</span><span>专业服务工作流</span><span>个人 IP 与私域转化</span><span>AI 高频实操</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section logic-section">
+          <div className="section-inner">
+            <div className="section-heading"><p className="eyebrow">课程底层逻辑</p><h2>从会用工具，到拥有自己的 AI 资产</h2><p>把重复劳动交给 AI，把经验沉淀成 SOP、模板、知识库和 Skill。</p></div>
+            <div className="logic-grid">
+              <article><span>1.0</span><h3>AI 工具提效</h3><p>先让 AI 接住选题、脚本、问答、资料整理和初稿生成。</p></article>
+              <article><span>2.0</span><h3>AI 工作流系统</h3><p>让引流、内容、咨询、成交、交付和复盘都有稳定流程。</p></article>
+              <article><span>3.0</span><h3>AI 资产沉淀</h3><p>把经验打包成知识库、SOP、Agent 和 Skill，持续复用。</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section id="course" className="section white-section">
+          <div className="section-inner">
+            <div className="section-heading wide"><p className="eyebrow">翔哥的正课</p><h2>《把 AI 装进你的业务》AI 工作流实战课</h2><p>80% 工作流落地，加上 20% 行业与商业认知，帮助有业务的人真正把 AI 用起来。</p></div>
+            <div className="course-facts">
+              <div><strong>适合人群</strong><span>有业务、内容、咨询、课程或私域转化链路的人</span></div>
+              <div><strong>学习重点</strong><span>从真实任务出发，边做边沉淀自己的工作流</span></div>
+              <div><strong>最终结果</strong><span>形成能反复使用的业务 SOP、知识库和 Skill</span></div>
+            </div>
+            <div className="course-grid">
+              {courseModules.map(([number, title, description]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{description}</p></article>)}
+            </div>
+          </div>
+        </section>
+
+        <section id="bonus" className="section bonus-section">
+          <div className="section-inner">
+            <div className="section-heading"><p className="eyebrow">赠送大礼包</p><h2>先拿基础包，再决定要不要继续深入</h2><p>留下联系方式，即可申请领取 AI 学习资料和首批 Skill。</p></div>
+            <article className="bonus-feature">
+              <div><span className="resource-label">核心赠品</span><h3>AI 年课基础内容包</h3><p>覆盖 AI 趋势、工具入门、内容流量、知识库和工作流等主题，适合先建立完整认知，再进入翔哥的业务实战课。</p>
+                <ul><li><Check size={18} />申请领取前 10 节基础内容</li><li><Check size={18} />完整 51 节学习目录</li><li><Check size={18} />后续新增资料持续更新</li></ul>
+              </div>
+              <a className="button primary" href="#claim">申请领取</a>
+            </article>
+            <div className="bonus-grid">
+              <article><span className="resource-label">PDF 资料</span><h3>《2026 超级个体 AI 生存手册》</h3><p>理解超级个体在 AI 时代的能力结构、机会判断与行动路径。</p><a href="#claim">登记后领取 <ArrowRight size={16} /></a></article>
+              <article><span className="resource-label">行动指南</span><h3>《AI 一人公司行动指南》</h3><p>从业务选择、内容获客到轻量交付，建立一个人的 AI 增长系统。</p><a href="#claim">登记后领取 <ArrowRight size={16} /></a></article>
+            </div>
+          </div>
+        </section>
+
+        <section id="skills" className="section white-section">
+          <div className="section-inner">
+            <div className="section-heading wide"><p className="eyebrow">翔哥 Skill 资产库</p><h2>把经验做成 AI 可以直接执行的能力</h2><p>从内容、咨询、销售到知识管理，逐步建立属于你的业务 Skill 库。</p></div>
+            <div className="skill-grid">{skills.map((skill, index) => <article key={skill}><span>{String(index + 1).padStart(2, "0")}</span><h3>{skill}</h3><p>登记后获取首批开放版本与更新通知。</p></article>)}</div>
+            <div className="skill-callout"><div><h3>首批 Skill 开放领取</h3><p>填写手机号和微信号，便于匹配领取记录并通知后续更新。</p></div><a className="button dark" href="#claim"><Download size={18} />申请下载</a></div>
+          </div>
+        </section>
+
+        <section id="claim" className="section claim-section">
+          <div className="section-inner claim-layout">
+            <div className="claim-copy"><p className="eyebrow light">领取赠品</p><h2>先把资料拿到手，再开始搭自己的 AI 工作流</h2><p>填写后，翔哥会通过微信联系你，安排赠品发放和后续更新通知。</p>
+              <ul><li><Check size={19} />前 10 节基础内容申请</li><li><Check size={19} />PDF 资料领取登记</li><li><Check size={19} />首批 Skill 下载通知</li></ul>
+            </div>
+            <form className="lead-form" onSubmit={submitLead}>
+              <div className="form-heading"><span>领取登记</span><strong>手机号和微信号都需要填写</strong></div>
+              <label>怎么称呼你<input name="name" autoComplete="name" maxLength={40} placeholder="选填" /></label>
+              <label>手机号<input name="phone" type="tel" inputMode="numeric" autoComplete="tel" required maxLength={11} placeholder="请输入 11 位手机号" /></label>
+              <label>微信号<input name="wechat" autoComplete="off" required maxLength={40} placeholder="用于资料发放和通知" /></label>
+              <label>你最想用 AI 做什么<select name="scenario" defaultValue=""><option value="">请选择（选填）</option>{scenarios.map((item) => <option key={item}>{item}</option>)}</select></label>
+              <label className="honeypot" aria-hidden="true">网站<input name="website" tabIndex={-1} autoComplete="off" /></label>
+              <label className="consent"><input name="consent" type="checkbox" required /><span>我同意将手机号和微信号用于赠品发放、课程沟通和相关通知。</span></label>
+              <button className="button primary submit-button" type="submit" disabled={submitting}>{submitting ? "正在提交..." : "提交登记"}</button>
+              {message?.type === "success" && <div className="success-notice" role="status"><CircleCheckBig size={28} /><div><strong>登记完成</strong><p>{message.text}</p></div></div>}
+              {message?.type === "error" && <p className="form-message error" role="status">{message.text}</p>}
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer"><div><span>翔哥 AI 工作流</span><a href="#top">返回顶部</a></div></footer>
+    </div>
+  );
+}
