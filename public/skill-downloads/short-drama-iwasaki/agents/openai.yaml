@@ -1,0 +1,4 @@
+interface:
+  display_name: "Short Drama Iwasaki"
+  short_description: "Practical guidance for Short Drama Iwasaki"
+  default_prompt: "Use $short-drama-iwasaki to help with this task."

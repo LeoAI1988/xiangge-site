@@ -1,0 +1,4 @@
+interface:
+  display_name: "Article Image Design"
+  short_description: "Practical guidance for Article Image Design"
+  default_prompt: "Use $article-image-design to help with this task."

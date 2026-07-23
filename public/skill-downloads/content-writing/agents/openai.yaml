@@ -1,0 +1,4 @@
+interface:
+  display_name: "Content Writing"
+  short_description: "Practical guidance for Content Writing"
+  default_prompt: "Use $content-writing to help with this task."

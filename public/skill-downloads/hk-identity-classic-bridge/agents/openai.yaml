@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hk Identity Classic Bridge"
+  short_description: "Practical guidance for Hk Identity Classic Bridge"
+  default_prompt: "Use $hk-identity-classic-bridge to help with this task."

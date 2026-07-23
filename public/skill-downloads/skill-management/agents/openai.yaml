@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Management"
+  short_description: "Practical guidance for Skill Management"
+  default_prompt: "Use $skill-management to help with this task."

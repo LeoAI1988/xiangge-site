@@ -1,0 +1,4 @@
+interface:
+  display_name: "Investment Upgrade Workflow"
+  short_description: "Practical guidance for Investment Upgrade Workflow"
+  default_prompt: "Use $investment-upgrade-workflow to help with this task."

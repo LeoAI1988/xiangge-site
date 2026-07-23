@@ -1,0 +1,4 @@
+interface:
+  display_name: "Strategic Thinking System"
+  short_description: "Practical guidance for Strategic Thinking System"
+  default_prompt: "Use $strategic-thinking-system to help with this task."

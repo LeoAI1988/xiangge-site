@@ -1,0 +1,4 @@
+interface:
+  display_name: "Multi Speaker Recording Annotation"
+  short_description: "Practical guidance for Multi Speaker Recording Annotation"
+  default_prompt: "Use $multi-speaker-recording-annotation to help with this task."

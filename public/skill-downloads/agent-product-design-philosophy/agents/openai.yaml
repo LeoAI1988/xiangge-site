@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Product Design Philosophy"
+  short_description: "Practical guidance for Agent Product Design Philosophy"
+  default_prompt: "Use $agent-product-design-philosophy to help with this task."

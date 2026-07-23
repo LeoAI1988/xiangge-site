@@ -1,0 +1,4 @@
+interface:
+  display_name: "Free Search Fallback"
+  short_description: "Practical guidance for Free Search Fallback"
+  default_prompt: "Use $free-search-fallback to help with this task."

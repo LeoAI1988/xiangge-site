@@ -1,0 +1,4 @@
+interface:
+  display_name: "Multi Source Research"
+  short_description: "Practical guidance for Multi Source Research"
+  default_prompt: "Use $multi-source-research to help with this task."

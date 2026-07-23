@@ -1,0 +1,4 @@
+interface:
+  display_name: "Getnote Api"
+  short_description: "Practical guidance for Getnote Api"
+  default_prompt: "Use $getnote-api to help with this task."

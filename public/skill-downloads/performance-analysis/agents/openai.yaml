@@ -1,0 +1,4 @@
+interface:
+  display_name: "Performance Analysis"
+  short_description: "Practical guidance for Performance Analysis"
+  default_prompt: "Use $performance-analysis to help with this task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Topic Selection"
+  short_description: "Practical guidance for Topic Selection"
+  default_prompt: "Use $topic-selection to help with this task."

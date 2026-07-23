@@ -1,0 +1,4 @@
+interface:
+  display_name: "Wechat Writing"
+  short_description: "Practical guidance for Wechat Writing"
+  default_prompt: "Use $wechat-writing to help with this task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Social Media Publishing"
+  short_description: "Practical guidance for Social Media Publishing"
+  default_prompt: "Use $social-media-publishing to help with this task."

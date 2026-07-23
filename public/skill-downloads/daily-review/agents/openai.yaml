@@ -1,0 +1,4 @@
+interface:
+  display_name: "Daily Review"
+  short_description: "Practical guidance for Daily Review"
+  default_prompt: "Use $daily-review to help with this task."

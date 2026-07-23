@@ -2,6 +2,16 @@
 
 import { ArrowDown, ArrowRight, Check, CircleCheckBig, Download, Menu, Sparkles, X } from "lucide-react";
 import { FormEvent, useState } from "react";
+import skillDownloadManifest from "../public/skill-downloads/manifest.json";
+
+type SkillDownloadManifestItem = {
+  slug: string;
+  title: string;
+  description: string;
+  download: string;
+};
+
+const skillDownloads = skillDownloadManifest as SkillDownloadManifestItem[];
 
 const courseModules = [
   ["01", "AI 不是工具，是你的第二个员工", "明确哪些工作交给 AI，哪些判断必须由人负责。"],
@@ -14,15 +24,6 @@ const courseModules = [
   ["08", "真实业务案例复盘", "拆解 AI 如何进入香港身份、教育规划等真实场景。"],
   ["09", "从工具到资产", "把 Prompt、模板、SOP 和 Skill 打包成复用资产。"],
   ["10", "上线、成交与迭代", "串起短视频、直播、页面、领取、购买和复盘闭环。"],
-];
-
-const skills = [
-  "短视频选题库", "直播脚本拆解", "朋友圈成交文案", "客户画像分析", "咨询方案初稿",
-  "常见问答 SOP", "小红书笔记生成", "视频号口播稿", "知识库整理", "会议纪要提炼",
-  "竞品内容分析", "爆款标题生成", "直播复盘助手", "客户跟进提醒", "案例包装助手",
-  "课程大纲生成", "产品卖点提炼", "私域标签整理", "销售异议处理", "社群运营日历",
-  "行业周报生成", "长文转短内容", "录音转知识卡", "商业路径对比", "需求访谈提纲",
-  "方案质量检查", "个人 IP 定位", "资源库编目", "工作流诊断", "Skill 创建助手",
 ];
 
 const scenarios = ["内容创作", "咨询与专业服务", "课程与知识付费", "私域运营", "个人 IP", "其他"];
@@ -100,7 +101,7 @@ export function LandingPage() {
             <div className="hero-metrics" aria-label="核心权益">
               <div><strong>10 节</strong><span>基础内容免费领取</span></div>
               <div><strong>51 节</strong><span>完整目录持续更新</span></div>
-              <div><strong>30 个</strong><span>业务 Skill 资产</span></div>
+              <div><strong>{skillDownloads.length} 个</strong><span>业务 Skill 资产</span></div>
             </div>
           </div>
           <a className="scroll-cue" href="#profile" aria-label="继续向下浏览"><span>SCROLL TO EXPLORE</span><ArrowDown size={17} /></a>
@@ -166,8 +167,20 @@ export function LandingPage() {
         <section id="skills" className="section white-section">
           <div className="section-inner">
             <div className="section-heading wide"><p className="eyebrow">翔哥 Skill 资产库</p><h2>把经验做成 AI 可以直接执行的能力</h2><p>从内容、咨询、销售到知识管理，逐步建立属于你的业务 Skill 库。</p></div>
-            <div className="skill-grid">{skills.map((skill, index) => <article key={skill}><span>{String(index + 1).padStart(2, "0")}</span><h3>{skill}</h3><p>登记后获取首批开放版本与更新通知。</p></article>)}</div>
-            <div className="skill-callout"><div><h3>首批 Skill 开放领取</h3><p>填写手机号和微信号，便于匹配领取记录并通知后续更新。</p></div><a className="button dark" href="#claim"><Download size={18} />申请下载</a></div>
+            <div className="skill-grid">
+              {skillDownloads.map((skill, index) => (
+                <article key={skill.slug}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{skill.title}</h3>
+                  <p>{skill.description}</p>
+                  <a className="button secondary-dark" href={skill.download} download>
+                    <Download size={16} />
+                    立即下载
+                  </a>
+                </article>
+              ))}
+            </div>
+            <div className="skill-callout"><div><h3>{skillDownloads.length} 个 Skill 已开放</h3><p>无需登记，也无需配置后端，点击上方按钮即可直接下载。</p></div><a className="button dark" href="#skills"><Download size={18} />查看全部</a></div>
           </div>
         </section>
 

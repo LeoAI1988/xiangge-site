@@ -1,0 +1,4 @@
+interface:
+  display_name: "Memory Sync"
+  short_description: "Practical guidance for Memory Sync"
+  default_prompt: "Use $memory-sync to help with this task."

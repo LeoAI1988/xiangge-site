@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tencent Creator Account"
+  short_description: "Practical guidance for Tencent Creator Account"
+  default_prompt: "Use $tencent-creator-account to help with this task."

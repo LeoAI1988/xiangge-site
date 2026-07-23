@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stock Chain Trading"
+  short_description: "Practical guidance for Stock Chain Trading"
+  default_prompt: "Use $stock-chain-trading to help with this task."
