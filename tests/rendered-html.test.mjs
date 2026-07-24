@@ -17,7 +17,15 @@ test("builds the public landing page with final branding", async () => {
   assert.match(landing, /13751196386/);
   assert.match(landing, /navigator\.clipboard\.writeText\("13751196386"\)/);
   assert.doesNotMatch(landing, /<form className="lead-form"/);
+  assert.doesNotMatch(landing, /<(?:input|select)\b/);
+  assert.doesNotMatch(landing, /\bname="consent"/);
+  assert.doesNotMatch(landing, /\btype="checkbox"/);
   assert.doesNotMatch(landing, /\/api\/leads/);
+  const claimCtas = [...landing.matchAll(/<a\b(?=[^>]*\bhref="#claim")[^>]*>([\s\S]*?)<\/a>/g)];
+  assert.ok(claimCtas.length > 0, "expected public resource-acquisition CTAs");
+  for (const [, content] of claimCtas) {
+    assert.equal(content.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(), "添加我的微信获取资料");
+  }
   assert.doesNotMatch(`${layout}\n${landing}`, /codex-preview|react-loading-skeleton|上线方案/);
 });
 

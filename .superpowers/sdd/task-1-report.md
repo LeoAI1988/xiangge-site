@@ -40,3 +40,15 @@ Expected failure: `builds the public landing page with final branding` does not 
 ## Concerns
 
 The repository is intentionally red until Task 2 replaces the landing form and removes the public lead route. An unrelated pre-existing `.gitignore` modification remains uncommitted and is excluded from this task's commit.
+
+## Review amendment
+
+Added explicit regression checks that reject all remaining `input` and `select` customer fields, the `consent` field, and checkbox inputs. The landing contract now collects every anchor whose `href` is `#claim`, requires at least one public resource-acquisition CTA, and requires each CTA's rendered text (after JSX icon markup is removed) to be exactly `添加我的微信获取资料`.
+
+Command:
+
+```powershell
+node --test tests/rendered-html.test.mjs
+```
+
+Result: exit code 1; 3 passing, 1 failing. The expected landing-page test remains red because the current implementation does not contain the required WeChat CTA (and still contains legacy `#claim` CTA labels and form controls). No production files were changed.
