@@ -13,8 +13,11 @@ test("builds the public landing page with final branding", async () => {
   assert.match(layout, /og\.png/);
   assert.match(landing, /让 AI 从一个工具/);
   assert.match(landing, /AI BUSINESS OPERATING SYSTEM/);
-  assert.match(landing, /手机号和微信号都需要填写/);
-  assert.match(landing, /老师会通过你填写的微信号添加你/);
+  assert.match(landing, /添加我的微信获取资料/);
+  assert.match(landing, /13751196386/);
+  assert.match(landing, /navigator\.clipboard\.writeText\("13751196386"\)/);
+  assert.doesNotMatch(landing, /<form className="lead-form"/);
+  assert.doesNotMatch(landing, /\/api\/leads/);
   assert.doesNotMatch(`${layout}\n${landing}`, /codex-preview|react-loading-skeleton|上线方案/);
 });
 
@@ -30,10 +33,9 @@ test("builds the protected admin dashboard shell", async () => {
 });
 
 test("keeps durable lead storage and protected export features wired", async () => {
-  const [hosting, schema, leadRoute, adminRoute, dashboard, exporter] = await Promise.all([
+  const [hosting, schema, adminRoute, dashboard, exporter] = await Promise.all([
     readFile(new URL("../.openai/hosting.json", import.meta.url), "utf8"),
     readFile(new URL("../db/schema.ts", import.meta.url), "utf8"),
-    readFile(new URL("../app/api/leads/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/api/admin/leads/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../components/AdminDashboard.tsx", import.meta.url), "utf8"),
     readFile(new URL("../lib/export-leads.mjs", import.meta.url), "utf8"),
@@ -41,7 +43,6 @@ test("keeps durable lead storage and protected export features wired", async () 
 
   assert.match(hosting, /"d1":\s*"DB"/);
   assert.match(schema, /sqliteTable\("leads"/);
-  assert.match(leadRoute, /INSERT INTO leads/);
   assert.match(adminRoute, /isAdminRequest/);
   assert.match(dashboard, /一键导出全部/);
   assert.match(dashboard, /buildLeadsExportZip/);
