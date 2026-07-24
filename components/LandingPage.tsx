@@ -52,7 +52,7 @@ export function LandingPage() {
           <a href="#course" onClick={() => setMenuOpen(false)}>正课大纲</a>
           <a href="#bonus" onClick={() => setMenuOpen(false)}>赠送大礼包</a>
           <a href="#skills" onClick={() => setMenuOpen(false)}>Skill 资产库</a>
-          <a className="mobile-claim" href="#claim">添加我的微信获取资料</a>
+          <a className="mobile-claim" href="#claim" onClick={() => setMenuOpen(false)}>添加我的微信获取资料</a>
         </nav>
         <a className="header-cta" href="#claim">添加我的微信获取资料</a>
         <button className="menu-button" type="button" aria-label="打开导航" onClick={() => setMenuOpen((value) => !value)}>

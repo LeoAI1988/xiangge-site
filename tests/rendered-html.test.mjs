@@ -16,13 +16,14 @@ test("builds the public landing page with final branding", async () => {
   assert.match(landing, /添加我的微信获取资料/);
   assert.match(landing, /13751196386/);
   assert.match(landing, /navigator\.clipboard\.writeText\("13751196386"\)/);
+  assert.match(landing, /复制未成功，请手动复制微信号 13751196386。/);
   assert.doesNotMatch(landing, /<form className="lead-form"/);
   assert.doesNotMatch(landing, /<(?:input|select)\b/);
   assert.doesNotMatch(landing, /\bname="consent"/);
   assert.doesNotMatch(landing, /\btype="checkbox"/);
   assert.doesNotMatch(landing, /\/api\/leads/);
   await assert.rejects(access(new URL("../app/api/leads/route.ts", import.meta.url)));
-  const claimCtas = [...landing.matchAll(/<a\b(?=[^>]*\bhref="#claim")[^>]*>([\s\S]*?)<\/a>/g)];
+  const claimCtas = [...landing.replace(/\{[^{}]*=>[^{}]*\}/g, "").matchAll(/<a\b(?=[^>]*\bhref="#claim")[^>]*>([\s\S]*?)<\/a>/g)];
   assert.ok(claimCtas.length > 0, "expected public resource-acquisition CTAs");
   for (const [, content] of claimCtas) {
     assert.equal(content.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(), "添加我的微信获取资料");
