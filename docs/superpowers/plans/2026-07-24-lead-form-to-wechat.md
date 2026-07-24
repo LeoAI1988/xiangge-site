@@ -57,14 +57,26 @@ Expected: the new landing-page test fails because the page still contains the fo
 ### Task 2: Replace the public collection UI and endpoint
 
 **Files:**
+- Modify: `tests/rendered-html.test.mjs`
 - Modify: `components/LandingPage.tsx`
+- Modify: `app/globals.css`
 - Delete: `app/api/leads/route.ts`
 
 **Interfaces:**
 - Consumes: `#claim` links throughout `LandingPage` and the fixed WeChat number `13751196386`.
 - Produces: a static `#claim` section and a `copyWeChat` click handler that calls `navigator.clipboard.writeText("13751196386")` without sending data to the server.
 
-- [ ] **Step 1: Remove the form submission state, form-event import, submit handler, form markup, consent fields, and all user-data collection text**
+- [ ] **Step 1: Extend the red contract so the public lead route must be absent**
+
+```js
+await assert.rejects(access(new URL("../app/api/leads/route.ts", import.meta.url)));
+```
+
+Run: `node --test tests/rendered-html.test.mjs`
+
+Expected: the existing landing-page assertion remains red and the new route-deletion assertion fails because `app/api/leads/route.ts` still exists.
+
+- [ ] **Step 2: Remove the form submission state, form-event import, submit handler, form markup, consent fields, and all user-data collection text**
 
 ```tsx
 import { useState } from "react";
@@ -72,12 +84,16 @@ import { useState } from "react";
 const wechatNumber = "13751196386";
 ```
 
-- [ ] **Step 2: Add a copy handler and static WeChat contact card**
+- [ ] **Step 3: Add a copy handler and static WeChat contact card**
 
 ```tsx
 async function copyWeChat() {
-  await navigator.clipboard.writeText(wechatNumber);
-  setCopyMessage("微信号已复制，打开微信添加我即可获取资料。");
+  try {
+    await navigator.clipboard.writeText(wechatNumber);
+    setCopyMessage("微信号已复制，打开微信添加我即可获取资料。");
+  } catch {
+    setCopyMessage("复制未成功，请手动复制微信号 13751196386。");
+  }
 }
 ```
 
@@ -93,22 +109,34 @@ async function copyWeChat() {
       <span>我的微信号</span>
       <strong>{wechatNumber}</strong>
       <button className="button primary submit-button" type="button" onClick={copyWeChat}>复制微信号</button>
+      {copyMessage && <p className="copy-message" role="status">{copyMessage}</p>}
     </aside>
   </div>
 </section>
 ```
 
-- [ ] **Step 3: Change every resource-acquisition CTA that targets `#claim` to the exact copy `添加我的微信获取资料`**
+- [ ] **Step 4: Change every resource-acquisition CTA that targets `#claim` to the exact copy `添加我的微信获取资料`**
 
 ```tsx
 <a className="button primary glow-button" href="#claim">添加我的微信获取资料 <ArrowRight size={18} /></a>
 ```
 
-- [ ] **Step 4: Delete the public collection route**
+- [ ] **Step 5: Replace form-specific CSS with contact-card CSS**
+
+```css
+.wechat-card { display: grid; gap: 16px; padding: clamp(23px,3vw,34px); border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius); background: rgba(255,255,255,.96); color: var(--ink); box-shadow: 0 30px 90px rgba(0,0,0,.38); }
+.wechat-card > span { color: var(--muted); font-size: 14px; font-weight: 850; }
+.wechat-card > strong { font-size: clamp(26px,4vw,38px); letter-spacing: .04em; }
+.copy-message { margin: 0; color: var(--teal-dark); font-size: 14px; font-weight: 800; }
+```
+
+Remove `.lead-form`, `.consent`, and `.honeypot` rules, because the public page no longer renders those controls. Keep existing responsive layout rules by changing the mobile selector from `.lead-form` to `.wechat-card` where necessary.
+
+- [ ] **Step 6: Delete the public collection route**
 
 Delete `app/api/leads/route.ts`; do not modify database records, migration files, `.openai/hosting.json`, or the protected historic-record admin code.
 
-- [ ] **Step 5: Run the regression check and confirm the green state**
+- [ ] **Step 7: Run the regression check and confirm the green state**
 
 Run: `node --test tests/rendered-html.test.mjs`
 
