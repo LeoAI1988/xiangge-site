@@ -21,6 +21,7 @@ test("builds the public landing page with final branding", async () => {
   assert.doesNotMatch(landing, /\bname="consent"/);
   assert.doesNotMatch(landing, /\btype="checkbox"/);
   assert.doesNotMatch(landing, /\/api\/leads/);
+  await assert.rejects(access(new URL("../app/api/leads/route.ts", import.meta.url)));
   const claimCtas = [...landing.matchAll(/<a\b(?=[^>]*\bhref="#claim")[^>]*>([\s\S]*?)<\/a>/g)];
   assert.ok(claimCtas.length > 0, "expected public resource-acquisition CTAs");
   for (const [, content] of claimCtas) {

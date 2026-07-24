@@ -1,7 +1,7 @@
 "use client";
 
-import { ArrowDown, ArrowRight, Check, CircleCheckBig, Download, Menu, Sparkles, X } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { ArrowDown, ArrowRight, Check, Download, Menu, Sparkles, X } from "lucide-react";
+import { useState } from "react";
 import skillDownloadManifest from "../public/skill-downloads/manifest.json";
 
 type SkillDownloadManifestItem = {
@@ -12,6 +12,7 @@ type SkillDownloadManifestItem = {
 };
 
 const skillDownloads = skillDownloadManifest as SkillDownloadManifestItem[];
+const wechatNumber = "13751196386";
 
 const courseModules = [
   ["01", "AI 不是工具，是你的第二个员工", "明确哪些工作交给 AI，哪些判断必须由人负责。"],
@@ -26,42 +27,16 @@ const courseModules = [
   ["10", "上线、成交与迭代", "串起短视频、直播、页面、领取、购买和复盘闭环。"],
 ];
 
-const scenarios = ["内容创作", "咨询与专业服务", "课程与知识付费", "私域运营", "个人 IP", "其他"];
-
 export function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [copyMessage, setCopyMessage] = useState("");
 
-  async function submitLead(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitting(true);
-    setMessage(null);
-    const form = event.currentTarget;
-    const data = new FormData(form);
-    const payload = {
-      name: data.get("name"),
-      phone: data.get("phone"),
-      wechat: data.get("wechat"),
-      scenario: data.get("scenario"),
-      website: data.get("website"),
-      consent: data.get("consent") === "on",
-    };
-
+  async function copyWeChat() {
     try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const result = (await response.json()) as { error?: string };
-      if (!response.ok) throw new Error(result.error || "提交失败");
-      form.reset();
-      setMessage({ type: "success", text: "老师会通过你填写的微信号添加你，请注意通过好友申请并查收资料。" });
-    } catch (error) {
-      setMessage({ type: "error", text: error instanceof Error ? error.message : "提交暂时没有成功，请稍后再试。" });
-    } finally {
-      setSubmitting(false);
+      await navigator.clipboard.writeText("13751196386");
+      setCopyMessage("微信号已复制，打开微信添加我即可获取资料。");
+    } catch {
+      setCopyMessage("复制未成功，请手动复制微信号 13751196386。");
     }
   }
 
@@ -77,9 +52,9 @@ export function LandingPage() {
           <a href="#course" onClick={() => setMenuOpen(false)}>正课大纲</a>
           <a href="#bonus" onClick={() => setMenuOpen(false)}>赠送大礼包</a>
           <a href="#skills" onClick={() => setMenuOpen(false)}>Skill 资产库</a>
-          <a className="mobile-claim" href="#claim" onClick={() => setMenuOpen(false)}>领取赠品</a>
+          <a className="mobile-claim" href="#claim">添加我的微信获取资料</a>
         </nav>
-        <a className="header-cta" href="#claim">领取赠品</a>
+        <a className="header-cta" href="#claim">添加我的微信获取资料</a>
         <button className="menu-button" type="button" aria-label="打开导航" onClick={() => setMenuOpen((value) => !value)}>
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -95,7 +70,7 @@ export function LandingPage() {
             <h1 id="hero-title">让 AI 从一个工具，<span>变成你的业务系统。</span></h1>
             <p className="hero-copy">不是教你多学几个软件，而是把 AI 接进引流、内容、咨询、成交和复盘，让重复工作自动运转，让经验成为复利资产。</p>
             <div className="hero-actions">
-              <a className="button primary glow-button" href="#claim">立即领取赠品 <ArrowRight size={18} /></a>
+              <a className="button primary glow-button" href="#claim">添加我的微信获取资料 <ArrowRight size={18} /></a>
               <a className="button glass" href="#course">查看正课大纲</a>
             </div>
             <div className="hero-metrics" aria-label="核心权益">
@@ -150,16 +125,16 @@ export function LandingPage() {
 
         <section id="bonus" className="section bonus-section">
           <div className="section-inner">
-            <div className="section-heading"><p className="eyebrow">赠送大礼包</p><h2>先拿基础包，再决定要不要继续深入</h2><p>留下联系方式，即可申请领取 AI 学习资料和首批 Skill。</p></div>
+            <div className="section-heading"><p className="eyebrow">赠送大礼包</p><h2>先拿基础包，再决定要不要继续深入</h2><p>添加我的微信，即可获取 AI 学习资料和首批 Skill。</p></div>
             <article className="bonus-feature">
               <div><span className="resource-label">核心赠品</span><h3>AI 年课基础内容包</h3><p>覆盖 AI 趋势、工具入门、内容流量、知识库和工作流等主题，适合先建立完整认知，再进入翔哥的业务实战课。</p>
                 <ul><li><Check size={18} />申请领取前 10 节基础内容</li><li><Check size={18} />完整 51 节学习目录</li><li><Check size={18} />后续新增资料持续更新</li></ul>
               </div>
-              <a className="button primary" href="#claim">申请领取</a>
+              <a className="button primary" href="#claim">添加我的微信获取资料</a>
             </article>
             <div className="bonus-grid">
-              <article><span className="resource-label">PDF 资料</span><h3>《2026 超级个体 AI 生存手册》</h3><p>理解超级个体在 AI 时代的能力结构、机会判断与行动路径。</p><a href="#claim">登记后领取 <ArrowRight size={16} /></a></article>
-              <article><span className="resource-label">行动指南</span><h3>《AI 一人公司行动指南》</h3><p>从业务选择、内容获客到轻量交付，建立一个人的 AI 增长系统。</p><a href="#claim">登记后领取 <ArrowRight size={16} /></a></article>
+              <article><span className="resource-label">PDF 资料</span><h3>《2026 超级个体 AI 生存手册》</h3><p>理解超级个体在 AI 时代的能力结构、机会判断与行动路径。</p><a href="#claim">添加我的微信获取资料</a></article>
+              <article><span className="resource-label">行动指南</span><h3>《AI 一人公司行动指南》</h3><p>从业务选择、内容获客到轻量交付，建立一个人的 AI 增长系统。</p><a href="#claim">添加我的微信获取资料</a></article>
             </div>
           </div>
         </section>
@@ -186,21 +161,15 @@ export function LandingPage() {
 
         <section id="claim" className="section claim-section">
           <div className="section-inner claim-layout">
-            <div className="claim-copy"><p className="eyebrow light">领取赠品</p><h2>先把资料拿到手，再开始搭自己的 AI 工作流</h2><p>填写后，翔哥会通过微信联系你，安排赠品发放和后续更新通知。</p>
-              <ul><li><Check size={19} />前 10 节基础内容申请</li><li><Check size={19} />PDF 资料领取登记</li><li><Check size={19} />首批 Skill 下载通知</li></ul>
+            <div className="claim-copy"><p className="eyebrow light">获取资料</p><h2>添加我的微信获取资料</h2><p>添加微信号后备注“资料”，我会把相关内容发给你。</p>
+              <ul><li><Check size={19} />前 10 节基础内容</li><li><Check size={19} />PDF 学习资料</li><li><Check size={19} />首批 Skill 下载信息</li></ul>
             </div>
-            <form className="lead-form" onSubmit={submitLead}>
-              <div className="form-heading"><span>领取登记</span><strong>手机号和微信号都需要填写</strong></div>
-              <label>怎么称呼你<input name="name" autoComplete="name" maxLength={40} placeholder="选填" /></label>
-              <label>手机号<input name="phone" type="tel" inputMode="numeric" autoComplete="tel" required maxLength={11} placeholder="请输入 11 位手机号" /></label>
-              <label>微信号<input name="wechat" autoComplete="off" required maxLength={40} placeholder="用于资料发放和通知" /></label>
-              <label>你最想用 AI 做什么<select name="scenario" defaultValue=""><option value="">请选择（选填）</option>{scenarios.map((item) => <option key={item}>{item}</option>)}</select></label>
-              <label className="honeypot" aria-hidden="true">网站<input name="website" tabIndex={-1} autoComplete="off" /></label>
-              <label className="consent"><input name="consent" type="checkbox" required /><span>我同意将手机号和微信号用于赠品发放、课程沟通和相关通知。</span></label>
-              <button className="button primary submit-button" type="submit" disabled={submitting}>{submitting ? "正在提交..." : "提交登记"}</button>
-              {message?.type === "success" && <div className="success-notice" role="status"><CircleCheckBig size={28} /><div><strong>登记完成</strong><p>{message.text}</p></div></div>}
-              {message?.type === "error" && <p className="form-message error" role="status">{message.text}</p>}
-            </form>
+            <aside className="wechat-card" aria-label="微信联系方式">
+              <span>我的微信号</span>
+              <strong>{wechatNumber}</strong>
+              <button className="button primary submit-button" type="button" onClick={copyWeChat}>复制微信号</button>
+              {copyMessage && <p className="copy-message" role="status">{copyMessage}</p>}
+            </aside>
           </div>
         </section>
       </main>
