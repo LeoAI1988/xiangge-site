@@ -15,8 +15,8 @@ test("builds the public landing page with final branding", async () => {
   assert.match(landing, /AI BUSINESS OPERATING SYSTEM/);
   assert.match(landing, /添加我的微信获取资料/);
   assert.match(landing, /13751196386/);
-  assert.match(landing, /navigator\.clipboard\.writeText\("13751196386"\)/);
-  assert.match(landing, /复制未成功，请手动复制微信号 13751196386。/);
+  assert.match(landing, /navigator\.clipboard\.writeText\(wechatNumber\)/);
+  assert.match(landing, /setCopyMessage\(`复制未成功，请手动复制微信号 \$\{wechatNumber\}。`\)/);
   assert.doesNotMatch(landing, /<form className="lead-form"/);
   assert.doesNotMatch(landing, /<(?:input|select)\b/);
   assert.doesNotMatch(landing, /\bname="consent"/);

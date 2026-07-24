@@ -33,10 +33,10 @@ export function LandingPage() {
 
   async function copyWeChat() {
     try {
-      await navigator.clipboard.writeText("13751196386");
+      await navigator.clipboard.writeText(wechatNumber);
       setCopyMessage("微信号已复制，打开微信添加我即可获取资料。");
     } catch {
-      setCopyMessage("复制未成功，请手动复制微信号 13751196386。");
+      setCopyMessage(`复制未成功，请手动复制微信号 ${wechatNumber}。`);
     }
   }
 

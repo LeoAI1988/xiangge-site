@@ -31,7 +31,7 @@
 ```js
 assert.match(landing, /添加我的微信获取资料/);
 assert.match(landing, /13751196386/);
-assert.match(landing, /navigator\.clipboard\.writeText\("13751196386"\)/);
+assert.match(landing, /navigator\.clipboard\.writeText\(wechatNumber\)/);
 assert.doesNotMatch(landing, /<form className="lead-form"/);
 assert.doesNotMatch(landing, /\/api\/leads/);
 ```
@@ -64,7 +64,7 @@ Expected: the new landing-page test fails because the page still contains the fo
 
 **Interfaces:**
 - Consumes: `#claim` links throughout `LandingPage` and the fixed WeChat number `13751196386`.
-- Produces: a static `#claim` section and a `copyWeChat` click handler that calls `navigator.clipboard.writeText("13751196386")` without sending data to the server.
+- Produces: a static `#claim` section and a `copyWeChat` click handler that calls `navigator.clipboard.writeText(wechatNumber)` without sending data to the server.
 
 - [ ] **Step 1: Extend the red contract so the public lead route must be absent**
 
@@ -92,7 +92,7 @@ async function copyWeChat() {
     await navigator.clipboard.writeText(wechatNumber);
     setCopyMessage("微信号已复制，打开微信添加我即可获取资料。");
   } catch {
-    setCopyMessage("复制未成功，请手动复制微信号 13751196386。");
+    setCopyMessage(`复制未成功，请手动复制微信号 ${wechatNumber}。`);
   }
 }
 ```
@@ -160,9 +160,9 @@ Expected: Vinext build exits with code 0 and Node reports all tests passing.
 
 - [ ] **Step 2: Confirm source-level acceptance criteria**
 
-Run: `rg -n -- "<form className=\"lead-form\"|/api/leads|13751196386|添加我的微信获取资料" components/LandingPage.tsx app tests`
+Run: `rg -n -- "<form className=\"lead-form\"|/api/leads" components/LandingPage.tsx app --glob '!app/api/leads/**'`
 
-Expected: matches for the WeChat number and new CTA copy only; no matches for the former public form or lead API route.
+Expected: no matches in production source. The focused test intentionally contains negative assertions for `/api/leads`; inspect it separately with `rg -n -- "/api/leads" tests/rendered-html.test.mjs` and expect those assertion references to remain.
 
 - [ ] **Step 3: Inspect the final version-control diff before handoff**
 
