@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import test from "node:test";
 
 test("builds the public landing page with final branding", async () => {
@@ -29,6 +29,39 @@ test("builds the public landing page with final branding", async () => {
     assert.equal(content.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(), "添加我的微信获取资料");
   }
   assert.doesNotMatch(`${layout}\n${landing}`, /codex-preview|react-loading-skeleton|上线方案/);
+});
+
+test("keeps the public Skill library categorized, aligned, and package-complete", async () => {
+  const root = new URL("../public/skill-downloads/", import.meta.url);
+  const [manifestText, landing, css, entries] = await Promise.all([
+    readFile(new URL("manifest.json", root), "utf8"),
+    readFile(new URL("../components/LandingPage.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readdir(root, { withFileTypes: true }),
+  ]);
+  const manifest = JSON.parse(manifestText);
+  const slugs = manifest.map((skill) => skill.slug);
+  const directories = entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
+  const zips = entries.filter((entry) => entry.isFile() && entry.name.endsWith(".zip")).map((entry) => entry.name.slice(0, -4)).sort();
+
+  assert.equal(manifest.length, 17);
+  assert.deepEqual([...new Set(manifest.map((skill) => skill.category))], ["创作与发布", "投资与研究", "商业与策略", "通用工具"]);
+  assert.deepEqual(directories, [...slugs].sort());
+  assert.deepEqual(zips, [...slugs].sort());
+  assert.doesNotMatch(slugs.join("\n"), /agent-match-platform|getnote-api|memory-sync|memory-system|xiangge-product-design-philosophy|multi-speaker-recording-annotation|short-drama-iwasaki/);
+  assert.match(landing, /skillDownloadsByCategory/);
+  assert.match(css, /\.skill-grid article \{ display: flex; flex-direction: column;/);
+  assert.match(css, /\.skill-grid \.button \{ width: 100%; margin-top: auto;/);
+
+  const skillTexts = await Promise.all(slugs.map(async (slug) => {
+    await access(new URL(`${slug}/agents/openai.yaml`, root));
+    return readFile(new URL(`${slug}/SKILL.md`, root), "utf8");
+  }));
+  const allSkillText = skillTexts.join("\n");
+  assert.doesNotMatch(allSkillText, /翔哥|高翔|LeoAI|gaoxiang|HK-hifly8082|advisorWechat|copyWechat|\/home\/|[A-Z]:\\\\Users\\\\/i);
+  assert.match(allSkillText, /岩井俊二/);
+  assert.match(allSkillText, /霍华德·马克斯/);
+  assert.match(allSkillText, /咪蒙/);
 });
 
 test("builds the protected admin dashboard shell", async () => {

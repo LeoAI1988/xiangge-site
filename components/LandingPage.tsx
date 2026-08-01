@@ -8,11 +8,17 @@ type SkillDownloadManifestItem = {
   slug: string;
   title: string;
   description: string;
+  category: "创作与发布" | "投资与研究" | "商业与策略" | "通用工具";
   download: string;
 };
 
 const skillDownloads = skillDownloadManifest as SkillDownloadManifestItem[];
 const wechatNumber = "13751196386";
+const skillCategoryOrder: SkillDownloadManifestItem["category"][] = ["创作与发布", "投资与研究", "商业与策略", "通用工具"];
+const skillDownloadsByCategory = skillCategoryOrder.map((category) => ({
+  category,
+  skills: skillDownloads.filter((skill) => skill.category === category),
+}));
 
 const courseModules = [
   ["01", "AI 不是工具，是你的第二个员工", "明确哪些工作交给 AI，哪些判断必须由人负责。"],
@@ -141,18 +147,28 @@ export function LandingPage() {
 
         <section id="skills" className="section white-section">
           <div className="section-inner">
-            <div className="section-heading wide"><p className="eyebrow">翔哥 Skill 资产库</p><h2>把经验做成 AI 可以直接执行的能力</h2><p>从内容、咨询、销售到知识管理，逐步建立属于你的业务 Skill 库。</p></div>
-            <div className="skill-grid">
-              {skillDownloads.map((skill, index) => (
-                <article key={skill.slug}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{skill.title}</h3>
-                  <p>{skill.description}</p>
-                  <a className="button secondary-dark" href={skill.download} download>
-                    <Download size={16} />
-                    立即下载
-                  </a>
-                </article>
+            <div className="section-heading wide"><p className="eyebrow">翔哥 Skill 资产库</p><h2>按工作场景，快速找到可以直接使用的能力</h2><p>所有 Skill 均与公开仓库同步，并经过精简、脱敏和安装校验。</p></div>
+            <div className="skill-categories">
+              {skillDownloadsByCategory.map(({ category, skills }) => (
+                <section className="skill-category" key={category} aria-labelledby={`skill-category-${category}`}>
+                  <div className="skill-category-heading">
+                    <h3 id={`skill-category-${category}`}>{category}</h3>
+                    <span>{skills.length} 个 Skill</span>
+                  </div>
+                  <div className="skill-grid">
+                    {skills.map((skill) => (
+                      <article key={skill.slug}>
+                        <span>{String(skillDownloads.findIndex((item) => item.slug === skill.slug) + 1).padStart(2, "0")}</span>
+                        <h3>{skill.title}</h3>
+                        <p>{skill.description}</p>
+                        <a className="button secondary-dark" href={skill.download} download>
+                          <Download size={16} />
+                          立即下载
+                        </a>
+                      </article>
+                    ))}
+                  </div>
+                </section>
               ))}
             </div>
             <div className="skill-callout"><div><h3>{skillDownloads.length} 个 Skill 已开放</h3><p>无需登记，也无需配置后端，点击上方按钮即可直接下载。</p></div><a className="button dark" href="#skills"><Download size={18} />查看全部</a></div>
