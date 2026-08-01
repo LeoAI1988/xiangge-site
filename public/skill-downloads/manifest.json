@@ -30,7 +30,7 @@
   {
     "slug": "cinematic-emotional-short-drama",
     "title": "电影感情绪短剧",
-    "description": "创作 60 秒内的原创电影感情绪短剧，包含选题、分镜、旁白与声音设计。",
+    "description": "以岩井俊二等公开作品为研究参考，创作克制的原创电影感情绪短剧。",
     "category": "创作与发布",
     "download": "/skill-downloads/cinematic-emotional-short-drama.zip"
   },
@@ -86,9 +86,16 @@
   {
     "slug": "strategic-thinking-system",
     "title": "战略思考系统",
-    "description": "用情景分析、反向验证、多角色辩论和决策矩阵分析复杂商业问题。",
+    "description": "用公开思想者框架、反向验证、多角色辩论和决策矩阵分析复杂商业问题。",
     "category": "商业与策略",
     "download": "/skill-downloads/strategic-thinking-system.zip"
+  },
+  {
+    "slug": "product-design-philosophy",
+    "title": "智能体产品设计哲学",
+    "description": "设计主人低参与、可解释且隐私分级的智能体代理、撮合与协作产品。",
+    "category": "商业与策略",
+    "download": "/skill-downloads/product-design-philosophy.zip"
   },
   {
     "slug": "tencent-creator-account",

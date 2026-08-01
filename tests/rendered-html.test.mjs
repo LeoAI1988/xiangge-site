@@ -31,11 +31,11 @@ test("keeps the public Skill library categorized, aligned, and package-complete"
   const directories = entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
   const zips = entries.filter((entry) => entry.isFile() && entry.name.endsWith(".zip")).map((entry) => entry.name.slice(0, -4)).sort();
 
-  assert.equal(manifest.length, 16);
+  assert.equal(manifest.length, 17);
   assert.deepEqual([...new Set(manifest.map((skill) => skill.category))], ["创作与发布", "投资与研究", "商业与策略", "通用工具"]);
   assert.deepEqual(directories, [...slugs].sort());
   assert.deepEqual(zips, [...slugs].sort());
-  assert.doesNotMatch(slugs.join("\n"), /agent-match-platform|getnote-api|memory-sync|memory-system|agent-product-design-philosophy|multi-speaker-recording-annotation|short-drama-iwasaki/);
+  assert.doesNotMatch(slugs.join("\n"), /agent-match-platform|getnote-api|memory-sync|memory-system|xiangge-product-design-philosophy|multi-speaker-recording-annotation|short-drama-iwasaki/);
   assert.match(landing, /skillDownloadsByCategory/);
   assert.match(css, /\.skill-grid article \{ display: flex; flex-direction: column;/);
   assert.match(css, /\.skill-grid \.button \{ width: 100%; margin-top: auto;/);
@@ -44,7 +44,11 @@ test("keeps the public Skill library categorized, aligned, and package-complete"
     await access(new URL(`${slug}/agents/openai.yaml`, root));
     return readFile(new URL(`${slug}/SKILL.md`, root), "utf8");
   }));
-  assert.doesNotMatch(skillTexts.join("\n"), /翔哥|高翔|LeoAI|gaoxiang|咪蒙|岩井|霍华德|达里奥|林奇|芒格|贝佐斯|乔布斯|\/home\/|[A-Z]:\\\\Users\\\\/i);
+  const allSkillText = skillTexts.join("\n");
+  assert.doesNotMatch(allSkillText, /翔哥|高翔|LeoAI|gaoxiang|HK-hifly8082|advisorWechat|copyWechat|\/home\/|[A-Z]:\\\\Users\\\\/i);
+  assert.match(allSkillText, /岩井俊二/);
+  assert.match(allSkillText, /霍华德·马克斯/);
+  assert.match(allSkillText, /咪蒙/);
 });
 
 test("builds the protected admin dashboard shell", async () => {
