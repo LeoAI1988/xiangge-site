@@ -1,4 +1,0 @@
-interface:
-  display_name: "Agent Match Platform"
-  short_description: "Practical guidance for Agent Match Platform"
-  default_prompt: "Use $agent-match-platform to help with this task."

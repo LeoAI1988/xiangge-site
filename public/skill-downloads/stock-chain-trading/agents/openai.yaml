@@ -1,4 +1,4 @@
 interface:
-  display_name: "Stock Chain Trading"
-  short_description: "Practical guidance for Stock Chain Trading"
-  default_prompt: "Use $stock-chain-trading to help with this task."
+  display_name: "产业链研究框架"
+  short_description: "用产业链、预期、情绪、资金和估值建立条件化风险情景"
+  default_prompt: "Use $stock-chain-trading to build an evidence-based industry-chain risk analysis."

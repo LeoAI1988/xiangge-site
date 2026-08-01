@@ -1,4 +1,0 @@
-interface:
-  display_name: "Memory System"
-  short_description: "Practical guidance for Memory System"
-  default_prompt: "Use $memory-system to help with this task."

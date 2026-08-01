@@ -1,134 +1,114 @@
 [
   {
-    "slug": "agent-match-platform",
-    "title": "Agent Match Platform",
-    "description": "Agent 撮合平台开发技能 — 替主人找对象/资源/项目的 Web 平台。涵盖握手协议、主人零参与设计、智能体自动接入、档案生成、撮合匹配的全栈实现。",
-    "download": "/skill-downloads/agent-match-platform.zip"
-  },
-  {
     "slug": "content-writing",
-    "title": "Content Writing",
-    "description": "中文内容创作全流程 — 原创长文、爆款改写、去 AI 味润色、人声化处理、商单文案。一个技能覆盖整个内容生产管线。",
+    "title": "中文内容创作",
+    "description": "覆盖原创长文、合规改写、去 AI 味润色与商业文案的中文内容全流程。",
+    "category": "创作与发布",
     "download": "/skill-downloads/content-writing.zip"
   },
   {
-    "slug": "daily-review",
-    "title": "Daily Review",
-    "description": "投资复盘报告生成器 — 盘后系统化复盘。从数据采集→分析→策略诊断→改进建议，输出结构化复盘报告。",
-    "download": "/skill-downloads/daily-review.zip"
+    "slug": "topic-selection",
+    "title": "内容选题策划",
+    "description": "基于受众、素材、时效与传播价值建立并筛选内容选题池。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/topic-selection.zip"
   },
   {
-    "slug": "free-search-fallback",
-    "title": "Free Search Fallback",
-    "description": "免费与公开搜索兜底集成 — 多源并行、智能匹配场景、强制读全文。非股市场景使用本 skill。",
-    "download": "/skill-downloads/free-search-fallback.zip"
+    "slug": "wechat-writing",
+    "title": "公众号文章写作",
+    "description": "将逐字稿、录音、笔记和链接整理成可发布的中文公众号文章。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/wechat-writing.zip"
   },
   {
-    "slug": "getnote-api",
-    "title": "Getnote Api",
-    "description": "Get笔记 API 集成与故障排查技能。覆盖保存、搜索、读取、更新、删除、标签和知识库操作，并强制使用环境变量保护凭证。",
-    "download": "/skill-downloads/getnote-api.zip"
+    "slug": "article-image-design",
+    "title": "文章配图设计",
+    "description": "为公众号、图文平台和短视频设计封面、配图与系列卡片。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/article-image-design.zip"
+  },
+  {
+    "slug": "cinematic-emotional-short-drama",
+    "title": "电影感情绪短剧",
+    "description": "创作 60 秒内的原创电影感情绪短剧，包含选题、分镜、旁白与声音设计。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/cinematic-emotional-short-drama.zip"
   },
   {
     "slug": "hk-identity-classic-bridge",
-    "title": "Hk Identity Classic Bridge",
-    "description": "香港身份相关服务广告创意库 — 借鉴经典电影桥段的情绪结构，包含桥段清单及拍摄、生图和生视频提示词模板。",
+    "title": "电影感广告创意",
+    "description": "为香港身份与家庭规划服务设计原创、合规且可执行的电影感广告场景。",
+    "category": "创作与发布",
     "download": "/skill-downloads/hk-identity-classic-bridge.zip"
   },
   {
+    "slug": "social-media-publishing",
+    "title": "社交媒体发布",
+    "description": "准备、预览、确认、发布和归档社交平台内容，并采集授权素材。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/social-media-publishing.zip"
+  },
+  {
+    "slug": "daily-review",
+    "title": "每日投资复盘",
+    "description": "核对当日交易与市场证据，分析执行偏差并建立次日风险情景。",
+    "category": "投资与研究",
+    "download": "/skill-downloads/daily-review.zip"
+  },
+  {
     "slug": "investment-upgrade-workflow",
-    "title": "Investment Upgrade Workflow",
-    "description": "投资体系大版本升级工作流 — 新增规则、修改评级、调整分制、增减维度的标准化流程。核心：逐项确认 + 不乱改 + 全量审计 + 三层同步。",
+    "title": "投资体系升级",
+    "description": "管理投资规则与评分体系的影响评估、版本升级、审计和同步。",
+    "category": "投资与研究",
     "download": "/skill-downloads/investment-upgrade-workflow.zip"
   },
   {
-    "slug": "memory-sync",
-    "title": "Memory Sync",
-    "description": "L1/L2/L3 三层记忆同步铁律 — 定位清晰，各司其职。定义何时同步、同步什么、不同步什么。",
-    "download": "/skill-downloads/memory-sync.zip"
-  },
-  {
-    "slug": "memory-system",
-    "title": "Memory System",
-    "description": "AI 助手记忆系统架构 — L1/L2/L3 三层记忆定位清晰，各司其职。含模型调度策略、Cron 任务速查、限流兜底。",
-    "download": "/skill-downloads/memory-system.zip"
-  },
-  {
     "slug": "multi-source-research",
-    "title": "Multi Source Research",
-    "description": "股市/投资专业搜索 — 腾讯行情 API 主力 + Tavily 深度搜索 + 多源交叉验证 + 公告/财报/资金流数据。专为股市场景设计。",
+    "title": "多源投资研究",
+    "description": "用官方资料、行情与反向证据核验股票、基金、财报和行业链问题。",
+    "category": "投资与研究",
     "download": "/skill-downloads/multi-source-research.zip"
   },
   {
     "slug": "performance-analysis",
-    "title": "Performance Analysis",
-    "description": "投资绩效分析 — 从逐日复盘+交易记录+账户快照提取数据，统计盈亏、执行偏差、策略评分，输出综合绩效报告。适用于任何市场的个人投资者。",
+    "title": "投资绩效分析",
+    "description": "处理现金流、收益、回撤、数据缺口和策略分段的投资绩效审计。",
+    "category": "投资与研究",
     "download": "/skill-downloads/performance-analysis.zip"
   },
   {
-    "slug": "short-drama-iwasaki",
-    "title": "Short Drama Iwasaki",
-    "description": "岩井俊二风格 AI 情感短剧剧本生成 — 50 秒以内、1-2 句旁白、复刻经典电影桥段、击中\"未说出口/失去后才懂/日常器物承载情感\"三大共鸣点。适用视频号/抖音/小红书。",
-    "download": "/skill-downloads/short-drama-iwasaki.zip"
-  },
-  {
-    "slug": "skill-management",
-    "title": "Skill Management",
-    "description": "技能（Skill）生命周期管理 — 创建、审查、安装。覆盖技能从设计到部署的全流程。",
-    "download": "/skill-downloads/skill-management.zip"
-  },
-  {
-    "slug": "social-media-publishing",
-    "title": "Social Media Publishing",
-    "description": "社交媒体内容发布与素材采集 — 小红书、微信公众号图文发布、多平台内容抓取。一个入口覆盖发布与素材采集。",
-    "download": "/skill-downloads/social-media-publishing.zip"
-  },
-  {
     "slug": "stock-chain-trading",
-    "title": "Stock Chain Trading",
-    "description": "AI 产业链链传交易策略 — CESMV 五维评分 + SPI 卖方压力指数 + 12 节点链传映射 + 抄底策略 + 止损分级 + 仓位指挥棒。",
+    "title": "产业链研究框架",
+    "description": "用产业链、预期、情绪、资金和估值建立条件化研究与风险情景。",
+    "category": "投资与研究",
     "download": "/skill-downloads/stock-chain-trading.zip"
   },
   {
-    "slug": "tencent-creator-account",
-    "title": "Tencent Creator Account",
-    "description": "腾讯生态创作者账号矩阵决策 — 覆盖视频号、公众号、小店、认证和经营主体，并要求对平台、工商与税务规则进行实时核验。",
-    "download": "/skill-downloads/tencent-creator-account.zip"
-  },
-  {
-    "slug": "topic-selection",
-    "title": "Topic Selection",
-    "description": "公众号选题策划系统 — 选题池规划、三大创作者方法论、爆款标题公式库、选题质量检查清单。",
-    "download": "/skill-downloads/topic-selection.zip"
-  },
-  {
-    "slug": "article-image-design",
-    "title": "Article Image Design",
-    "description": "公众号文章配图设计系统 — 黑底荧光绿终端风格，GPT Image 2 / Nano Banana 2 / HTML+CSS 多方案。精确控制排版/字体/配色/布局。",
-    "download": "/skill-downloads/article-image-design.zip"
-  },
-  {
-    "slug": "agent-product-design-philosophy",
-    "title": "Agent Product Design Philosophy",
-    "description": "AI 智能体代人产品的设计哲学 — 涵盖产品理念定位、形态命名偏好、主人零参与原则、信息流设计、视觉风格。",
-    "download": "/skill-downloads/agent-product-design-philosophy.zip"
-  },
-  {
     "slug": "strategic-thinking-system",
-    "title": "Strategic Thinking System",
-    "description": "顶级思维决策系统 — 整合 active-agent 执行引擎、best-minds 顶级思维模拟、expert-team-builder 多 Agent 辩论、insight 战略挑战、商业判断五大框架，为复杂商业战略问题提供第一性原理驱动的多维度分析。",
+    "title": "战略思考系统",
+    "description": "用情景分析、反向验证、多角色辩论和决策矩阵分析复杂商业问题。",
+    "category": "商业与策略",
     "download": "/skill-downloads/strategic-thinking-system.zip"
   },
   {
-    "slug": "wechat-writing",
-    "title": "Wechat Writing",
-    "description": "公众号文章全流程写作 — 从逐字稿/录音/素材直接输出成品。含咪蒙风格情绪化写作、策划先行流程、去 AI 味、短视频文案改写。",
-    "download": "/skill-downloads/wechat-writing.zip"
+    "slug": "tencent-creator-account",
+    "title": "创作者账号规划",
+    "description": "实时核验内容生态账号、经营主体、认证、店铺与合规选择路径。",
+    "category": "商业与策略",
+    "download": "/skill-downloads/tencent-creator-account.zip"
   },
   {
-    "slug": "multi-speaker-recording-annotation",
-    "title": "Multi Speaker Recording Annotation",
-    "description": "多人录音的人物关系标注技能。依据可核验上下文识别说话人，使用匿名角色标签，并在更新标题和正文前后执行隐私检查。",
-    "download": "/skill-downloads/multi-speaker-recording-annotation.zip"
+    "slug": "free-search-fallback",
+    "title": "免费搜索兜底",
+    "description": "使用免费公开来源完成多源搜索、全文读取、去重与时效核验。",
+    "category": "通用工具",
+    "download": "/skill-downloads/free-search-fallback.zip"
+  },
+  {
+    "slug": "skill-management",
+    "title": "Skill 生命周期管理",
+    "description": "创建、审查、验证、打包和安装可复用且公开安全的 Skill。",
+    "category": "通用工具",
+    "download": "/skill-downloads/skill-management.zip"
   }
 ]
