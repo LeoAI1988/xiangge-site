@@ -9,14 +9,15 @@ test("builds the public landing page with final branding", async () => {
   ]);
 
   await access(new URL("../dist/server/index.js", import.meta.url));
+  await access(new URL("../public/wechat-qr.jpg", import.meta.url));
   assert.match(layout, /翔哥 AI 业务工作流课/);
   assert.match(layout, /og\.png/);
   assert.match(landing, /让 AI 从一个工具/);
   assert.match(landing, /AI BUSINESS OPERATING SYSTEM/);
   assert.match(landing, /添加我的微信获取资料/);
-  assert.match(landing, /13751196386/);
-  assert.match(landing, /navigator\.clipboard\.writeText\(wechatNumber\)/);
-  assert.match(landing, /setCopyMessage\(`复制未成功，请手动复制微信号 \$\{wechatNumber\}。`\)/);
+  assert.match(landing, /src="\.\/wechat-qr\.jpg"/);
+  assert.match(landing, /高翔的微信二维码/);
+  assert.doesNotMatch(landing, /13751196386|navigator\.clipboard|copyMessage|复制微信号/);
   assert.doesNotMatch(landing, /<form className="lead-form"/);
   assert.doesNotMatch(landing, /<(?:input|select)\b/);
   assert.doesNotMatch(landing, /\bname="consent"/);

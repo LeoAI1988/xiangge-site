@@ -13,7 +13,6 @@ type SkillDownloadManifestItem = {
 };
 
 const skillDownloads = skillDownloadManifest as SkillDownloadManifestItem[];
-const wechatNumber = "13751196386";
 const skillCategoryOrder: SkillDownloadManifestItem["category"][] = ["创作与发布", "投资与研究", "商业与策略", "通用工具"];
 const skillDownloadsByCategory = skillCategoryOrder.map((category) => ({
   category,
@@ -35,16 +34,6 @@ const courseModules = [
 
 export function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [copyMessage, setCopyMessage] = useState("");
-
-  async function copyWeChat() {
-    try {
-      await navigator.clipboard.writeText(wechatNumber);
-      setCopyMessage("微信号已复制，打开微信添加我即可获取资料。");
-    } catch {
-      setCopyMessage(`复制未成功，请手动复制微信号 ${wechatNumber}。`);
-    }
-  }
 
   return (
     <div className="site-shell">
@@ -91,7 +80,7 @@ export function LandingPage() {
         <section id="profile" className="section white-section">
           <div className="section-inner profile-layout">
             <figure className="profile-photo"><span className="profile-photo-label">REAL BUSINESS · REAL WORKFLOW</span>
-              <img src="/xiangge-profile.jpg" alt="翔哥个人照片" />
+              <img src="./xiangge-profile.jpg" alt="翔哥个人照片" />
               <figcaption>翔哥 · AI 业务工作流实践者</figcaption>
             </figure>
             <div className="profile-content">
@@ -161,7 +150,7 @@ export function LandingPage() {
                         <span>{String(skillDownloads.findIndex((item) => item.slug === skill.slug) + 1).padStart(2, "0")}</span>
                         <h3>{skill.title}</h3>
                         <p>{skill.description}</p>
-                        <a className="button secondary-dark" href={skill.download} download>
+                        <a className="button secondary-dark" href={`.${skill.download}`} download>
                           <Download size={16} />
                           立即下载
                         </a>
@@ -177,14 +166,13 @@ export function LandingPage() {
 
         <section id="claim" className="section claim-section">
           <div className="section-inner claim-layout">
-            <div className="claim-copy"><p className="eyebrow light">获取资料</p><h2>添加我的微信获取资料</h2><p>添加微信号后备注“资料”，我会把相关内容发给你。</p>
+            <div className="claim-copy"><p className="eyebrow light">获取资料</p><h2>添加我的微信获取资料</h2><p>扫描右侧二维码添加好友，备注“资料”，我会把相关内容发给你。</p>
               <ul><li><Check size={19} />前 10 节基础内容</li><li><Check size={19} />PDF 学习资料</li><li><Check size={19} />首批 Skill 下载信息</li></ul>
             </div>
             <aside className="wechat-card" aria-label="微信联系方式">
-              <span>我的微信号</span>
-              <strong>{wechatNumber}</strong>
-              <button className="button primary submit-button" type="button" onClick={copyWeChat}>复制微信号</button>
-              {copyMessage && <p className="copy-message" role="status">{copyMessage}</p>}
+              <span>扫码添加我的微信</span>
+              <img className="wechat-qr" src="./wechat-qr.jpg" alt="高翔的微信二维码" width={888} height={1137} />
+              <p className="wechat-note">打开微信扫一扫，添加好友后备注“资料”。</p>
             </aside>
           </div>
         </section>
