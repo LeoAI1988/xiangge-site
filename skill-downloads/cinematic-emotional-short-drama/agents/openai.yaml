@@ -1,0 +1,4 @@
+interface:
+  display_name: "电影感情绪短剧"
+  short_description: "创作克制、细腻、有公开作品参考且可执行的电影感情绪短剧"
+  default_prompt: "使用 $cinematic-emotional-short-drama 为这个主题创作一支短剧。"

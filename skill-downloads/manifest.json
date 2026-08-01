@@ -1,0 +1,121 @@
+[
+  {
+    "slug": "content-writing",
+    "title": "中文内容创作",
+    "description": "覆盖原创长文、合规改写、去 AI 味润色与商业文案的中文内容全流程。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/content-writing.zip"
+  },
+  {
+    "slug": "topic-selection",
+    "title": "内容选题策划",
+    "description": "基于受众、素材、时效与传播价值建立并筛选内容选题池。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/topic-selection.zip"
+  },
+  {
+    "slug": "wechat-writing",
+    "title": "公众号文章写作",
+    "description": "将逐字稿、录音、笔记和链接整理成可发布的中文公众号文章。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/wechat-writing.zip"
+  },
+  {
+    "slug": "article-image-design",
+    "title": "文章配图设计",
+    "description": "为公众号、图文平台和短视频设计封面、配图与系列卡片。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/article-image-design.zip"
+  },
+  {
+    "slug": "cinematic-emotional-short-drama",
+    "title": "电影感情绪短剧",
+    "description": "以岩井俊二等公开作品为研究参考，创作克制的原创电影感情绪短剧。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/cinematic-emotional-short-drama.zip"
+  },
+  {
+    "slug": "hk-identity-classic-bridge",
+    "title": "电影感广告创意",
+    "description": "为香港身份与家庭规划服务设计原创、合规且可执行的电影感广告场景。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/hk-identity-classic-bridge.zip"
+  },
+  {
+    "slug": "social-media-publishing",
+    "title": "社交媒体发布",
+    "description": "准备、预览、确认、发布和归档社交平台内容，并采集授权素材。",
+    "category": "创作与发布",
+    "download": "/skill-downloads/social-media-publishing.zip"
+  },
+  {
+    "slug": "daily-review",
+    "title": "每日投资复盘",
+    "description": "核对当日交易与市场证据，分析执行偏差并建立次日风险情景。",
+    "category": "投资与研究",
+    "download": "/skill-downloads/daily-review.zip"
+  },
+  {
+    "slug": "investment-upgrade-workflow",
+    "title": "投资体系升级",
+    "description": "管理投资规则与评分体系的影响评估、版本升级、审计和同步。",
+    "category": "投资与研究",
+    "download": "/skill-downloads/investment-upgrade-workflow.zip"
+  },
+  {
+    "slug": "multi-source-research",
+    "title": "多源投资研究",
+    "description": "用官方资料、行情与反向证据核验股票、基金、财报和行业链问题。",
+    "category": "投资与研究",
+    "download": "/skill-downloads/multi-source-research.zip"
+  },
+  {
+    "slug": "performance-analysis",
+    "title": "投资绩效分析",
+    "description": "处理现金流、收益、回撤、数据缺口和策略分段的投资绩效审计。",
+    "category": "投资与研究",
+    "download": "/skill-downloads/performance-analysis.zip"
+  },
+  {
+    "slug": "stock-chain-trading",
+    "title": "产业链研究框架",
+    "description": "用产业链、预期、情绪、资金和估值建立条件化研究与风险情景。",
+    "category": "投资与研究",
+    "download": "/skill-downloads/stock-chain-trading.zip"
+  },
+  {
+    "slug": "strategic-thinking-system",
+    "title": "战略思考系统",
+    "description": "用公开思想者框架、反向验证、多角色辩论和决策矩阵分析复杂商业问题。",
+    "category": "商业与策略",
+    "download": "/skill-downloads/strategic-thinking-system.zip"
+  },
+  {
+    "slug": "product-design-philosophy",
+    "title": "智能体产品设计哲学",
+    "description": "设计主人低参与、可解释且隐私分级的智能体代理、撮合与协作产品。",
+    "category": "商业与策略",
+    "download": "/skill-downloads/product-design-philosophy.zip"
+  },
+  {
+    "slug": "tencent-creator-account",
+    "title": "创作者账号规划",
+    "description": "实时核验内容生态账号、经营主体、认证、店铺与合规选择路径。",
+    "category": "商业与策略",
+    "download": "/skill-downloads/tencent-creator-account.zip"
+  },
+  {
+    "slug": "free-search-fallback",
+    "title": "免费搜索兜底",
+    "description": "使用免费公开来源完成多源搜索、全文读取、去重与时效核验。",
+    "category": "通用工具",
+    "download": "/skill-downloads/free-search-fallback.zip"
+  },
+  {
+    "slug": "skill-management",
+    "title": "Skill 生命周期管理",
+    "description": "创建、审查、验证、打包和安装可复用且公开安全的 Skill。",
+    "category": "通用工具",
+    "download": "/skill-downloads/skill-management.zip"
+  }
+]
