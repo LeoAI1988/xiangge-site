@@ -18,7 +18,7 @@ test("builds a GitHub Pages-only frontend with the QR contact flow", async () =>
   assert.match(indexHtml, /\/xiangge-site\/assets\//);
 
   const scripts = (await Promise.all(jsNames.map((name) => readFile(new URL(`assets/${name}`, pagesRoot), "utf8")))).join("\n");
-  assert.match(scripts, /添加我的微信获取资料/);
+  assert.match(scripts, /添加微信获取资料/);
   assert.match(scripts, /wechat-qr\.jpg/);
   assert.match(scripts, /skill-downloads/);
   assert.doesNotMatch(scripts, /13751196386|\/api\/leads/);

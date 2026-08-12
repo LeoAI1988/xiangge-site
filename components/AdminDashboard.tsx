@@ -112,12 +112,12 @@ export function AdminDashboard() {
   }
 
   if (authenticated === false) {
-    return <main className="admin-login"><form onSubmit={login}><div className="brand-mark">翔</div><p>翔哥 AI 工作流</p><h1>表单管理后台</h1><label>管理密码<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoFocus required /></label><button className="button primary" type="submit">登录后台</button>{loginError && <p className="form-message error">{loginError}</p>}<a href="/">返回网站</a></form></main>;
+    return <main className="admin-login"><form onSubmit={login}><div className="brand-mark">亚</div><p>亚里士多翔的 AI 世界</p><h1>表单管理后台</h1><label>管理密码<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoFocus required /></label><button className="button primary" type="submit">登录后台</button>{loginError && <p className="form-message error">{loginError}</p>}<a href="/">返回网站</a></form></main>;
   }
 
   return (
     <main className="admin-shell">
-      <header className="admin-header"><div><span className="brand-mark">翔</span><div><p>翔哥 AI 工作流</p><h1>表单管理后台</h1></div></div><button className="icon-text-button" type="button" onClick={logout}><LogOut size={18} />退出</button></header>
+      <header className="admin-header"><div><span className="brand-mark">亚</span><div><p>亚里士多翔的 AI 世界</p><h1>表单管理后台</h1></div></div><button className="icon-text-button" type="button" onClick={logout}><LogOut size={18} />退出</button></header>
       <section className="admin-summary"><div><span>全部登记</span><strong>{leads.length}</strong></div><div><span>今日新增</span><strong>{leads.filter((lead) => lead.created_at.slice(0, 10) === new Date().toISOString().slice(0, 10)).length}</strong></div><div><span>已选择</span><strong>{selected.size}</strong></div></section>
       <section className="admin-workspace">
         <div className="admin-toolbar">

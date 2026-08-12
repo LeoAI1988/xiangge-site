@@ -140,13 +140,14 @@ p { line-height: 1.75; }
 .claim-layout { display: grid; grid-template-columns: minmax(0,.95fr) minmax(340px,.72fr); gap: clamp(34px,6vw,78px); align-items: start; }
 .claim-copy > p:not(.eyebrow), .claim-copy li { color: rgba(255,255,255,.78); font-size: 18px; }
 .claim-copy li svg { color: #ffd08c; }
-.wechat-card { display: grid; justify-items: center; gap: 16px; padding: clamp(23px,3vw,34px); border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius); background: rgba(255,255,255,.96); color: var(--ink); box-shadow: 0 30px 90px rgba(0,0,0,.38); }
+.wechat-card { display: grid; justify-items: center; gap: 16px; padding: clamp(20px,3vw,30px); border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius); background: rgba(255,255,255,.96); color: var(--ink); box-shadow: 0 30px 90px rgba(0,0,0,.38); }
 .wechat-card > span { color: var(--muted); font-size: 16px; font-weight: 900; }
-.wechat-qr { display: block; width: min(100%,420px); height: auto; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
-.wechat-note { margin: 0; color: var(--teal-dark); font-size: 14px; font-weight: 800; text-align: center; }
-.site-footer { padding: 26px clamp(20px,5vw,72px); background: var(--ink); color: #fff; }
-.site-footer > div { display: flex; justify-content: space-between; width: min(1180px,100%); margin: 0 auto; font-weight: 900; }
+.wechat-qr { display: block; width: min(100%,260px); height: auto; border: 0; border-radius: 10px; background: #fff; }
+.site-footer { padding: 22px clamp(20px,5vw,72px); background: var(--ink); color: #fff; }
+.site-footer > div { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: min(1180px,100%); margin: 0 auto; font-weight: 900; }
+.site-footer-links { display: inline-flex; align-items: center; gap: 18px; }
 .site-footer a { color: #ffd08c; }
+.icp-link { font-size: 13px; font-weight: 700; }
 
 /* Admin */
 .admin-login label { display: grid; gap: 7px; font-weight: 850; }
@@ -230,6 +231,8 @@ tbody tr:hover, tbody tr.selected { background: #f0f8f5; }
   .course-grid article, .skill-grid article { min-height: 0; }
   .skill-category-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
   .bonus-feature .button, .skill-callout .button, .hero-actions .button { width: 100%; }
+  .site-footer > div { align-items: flex-start; flex-direction: column; }
+  .site-footer-links { align-items: flex-start; flex-direction: column; gap: 8px; }
   .admin-header { align-items: flex-start; }
   .admin-header .icon-text-button { width: 42px; padding: 9px; font-size: 0; }
   .toolbar-actions { display: grid; grid-template-columns: 1fr 1fr; }
