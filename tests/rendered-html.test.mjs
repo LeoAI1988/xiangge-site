@@ -17,6 +17,12 @@ test("builds the public landing page with final branding", async () => {
   assert.match(landing, /添加微信获取资料/);
   assert.match(landing, /src="\.\/wechat-qr\.jpg"/);
   assert.match(landing, /微信二维码/);
+  assert.match(landing, /流水的大模型，铁打的系统/);
+  assert.match(landing, /没有对比就看不清价值/);
+  assert.match(landing, /2026超级个体AI生存手册/);
+  assert.match(landing, /AI一人公司行动指南/);
+  assert.match(landing, /courseChapters/);
+  assert.doesNotMatch(landing, /AI 观和课程介绍|REAL BUSINESS · REAL WORKFLOW/);
   assert.doesNotMatch(landing, /13751196386|navigator\.clipboard|copyMessage|复制微信号/);
   assert.doesNotMatch(landing, /<form className="lead-form"/);
   assert.doesNotMatch(landing, /<(?:input|select)\b/);

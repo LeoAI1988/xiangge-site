@@ -21,5 +21,7 @@ test("builds a GitHub Pages-only frontend with the QR contact flow", async () =>
   assert.match(scripts, /添加微信获取资料/);
   assert.match(scripts, /wechat-qr\.jpg/);
   assert.match(scripts, /skill-downloads/);
+  assert.match(scripts, /没有对比就看不清价值/);
+  assert.match(scripts, /粤ICP备2026089185号-2/);
   assert.doesNotMatch(scripts, /13751196386|\/api\/leads/);
 });
