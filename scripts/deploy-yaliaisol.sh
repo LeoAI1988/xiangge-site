@@ -7,7 +7,14 @@ readonly WWW_DOMAIN="www.yaliaisol.com"
 readonly RELEASE_TAG="yaliaisol-20260825-1248"
 readonly ARCHIVE_NAME="yaliaisol-site-20260825-1248.zip"
 readonly ARCHIVE_SHA256="5cec3962151f2a01aba95889f7abfd0463d25c885ff4d1b4d50986568e8a2f4d"
-readonly ARCHIVE_URL="https://github.com/LeoAI1988/xiangge-site/releases/download/${RELEASE_TAG}/${ARCHIVE_NAME}"
+readonly ARCHIVE_PAGES_URL="https://leoai1988.github.io/xiangge-site/deploy/${ARCHIVE_NAME}"
+readonly ARCHIVE_JSDELIVR_URL="https://cdn.jsdelivr.net/gh/LeoAI1988/xiangge-site@gh-pages/deploy/${ARCHIVE_NAME}"
+readonly ARCHIVE_RELEASE_URL="https://github.com/LeoAI1988/xiangge-site/releases/download/${RELEASE_TAG}/${ARCHIVE_NAME}"
+readonly -a ARCHIVE_URLS=(
+  "${ARCHIVE_PAGES_URL}"
+  "${ARCHIVE_JSDELIVR_URL}"
+  "${ARCHIVE_RELEASE_URL}"
+)
 readonly DEPLOY_ROOT="/var/www/yaliaisol"
 readonly CURRENT_LINK="${DEPLOY_ROOT}/current"
 readonly NGINX_CONF="/etc/nginx/sites-available/yaliaisol"
@@ -41,9 +48,21 @@ cleanup() {
 }
 trap cleanup EXIT
 
-echo "[1/7] 下载并校验 GitHub 发布包..."
-curl -fsSL --connect-timeout 15 --max-time 120 --retry 3 --retry-all-errors \
-  "${ARCHIVE_URL}" -o "${archive_path}"
+echo "[1/7] 下载并校验发布包..."
+download_succeeded=0
+for archive_url in "${ARCHIVE_URLS[@]}"; do
+  echo "尝试下载：${archive_url}"
+  rm -f -- "${archive_path}"
+  if curl -fsSL --connect-timeout 15 --max-time 180 --retry 2 --retry-all-errors \
+    "${archive_url}" -o "${archive_path}"; then
+    download_succeeded=1
+    break
+  fi
+done
+if [[ "${download_succeeded}" -ne 1 ]]; then
+  echo "ERROR: 所有发布包下载地址均不可用。" >&2
+  exit 1
+fi
 echo "${ARCHIVE_SHA256}  ${archive_path}" | sha256sum -c -
 
 mkdir -p "${unpack_dir}"
