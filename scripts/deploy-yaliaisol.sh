@@ -53,7 +53,7 @@ download_succeeded=0
 for archive_url in "${ARCHIVE_URLS[@]}"; do
   echo "尝试下载：${archive_url}"
   rm -f -- "${archive_path}"
-  if curl -fsSL --connect-timeout 15 --max-time 180 --retry 2 --retry-all-errors \
+  if curl -fsSL --connect-timeout 15 --max-time 600 --retry 2 --retry-all-errors \
     "${archive_url}" -o "${archive_path}"; then
     download_succeeded=1
     break
@@ -72,6 +72,11 @@ test -d "${unpack_dir}/assets"
 grep -RFl -- "粤ICP备2026089185号-2" "${unpack_dir}/assets" >/dev/null
 grep -RFl -- "粤公网安备44030002015092号" "${unpack_dir}/assets" >/dev/null
 grep -RFl -- "添加微信获取资料" "${unpack_dir}/assets" >/dev/null
+grep -Fq -- "<title>亚里士多翔的 AI 世界｜有用的AI课</title>" "${unpack_dir}/index.html"
+if grep -RFl -- "虎子的时间星河" "${unpack_dir}" >/dev/null; then
+  echo "ERROR: 发布包中仍包含旧网站内容。" >&2
+  exit 1
+fi
 
 echo "[2/7] 建立可回滚的静态站发布目录..."
 install -d -m 0755 "${DEPLOY_ROOT}/releases" "${backup_dir}"
@@ -94,6 +99,7 @@ fi
 
 rollback() {
   exit_code=$?
+  trap - ERR
   set +e
   echo "ERROR: 部署失败，正在恢复上一版..." >&2
   if [[ -n "${old_current_target}" ]]; then
@@ -183,16 +189,22 @@ grep -Fq -- "DNS:${WWW_DOMAIN}" <<<"${certificate_names}"
 
 echo "[6/7] 核对线上品牌、微信二维码与两条备案信息..."
 index_html="$(curl -fsS "https://${WWW_DOMAIN}/")"
+grep -Fq -- "<title>亚里士多翔的 AI 世界｜有用的AI课</title>" <<<"${index_html}" || {
+  echo "ERROR: 线上首页仍不是亚里士多翔网站。" >&2
+  exit 1
+}
 asset_path="$(grep -oE 'src="/[^"]+\\.js"' <<<"${index_html}" | head -n 1 | cut -d '"' -f 2)"
-[[ -n "${asset_path}" ]]
-bundle_text="$(curl -fsS "https://${WWW_DOMAIN}${asset_path}")"
-grep -Fq -- "亚里士多翔的 AI 世界" <<<"${bundle_text}"
-grep -Fq -- "添加微信获取资料" <<<"${bundle_text}"
-grep -Fq -- "粤ICP备2026089185号-2" <<<"${bundle_text}"
-grep -Fq -- "粤公网安备44030002015092号" <<<"${bundle_text}"
-! grep -Fq -- "虎子的时间星河" <<<"${bundle_text}"
-curl -fsS -o /dev/null "https://${WWW_DOMAIN}/wechat-qr.jpg"
-curl -fsS -o /dev/null "https://${WWW_DOMAIN}/xiangge-profile.jpg"
+[[ -n "${asset_path}" ]] || {
+  echo "ERROR: 线上首页没有找到 JavaScript 资源。" >&2
+  exit 1
+}
+for public_path in "${asset_path}" "/wechat-qr.jpg" "/xiangge-profile.jpg"; do
+  public_status="$(curl -sS -o /dev/null -w '%{http_code}' "https://${WWW_DOMAIN}${public_path}" || true)"
+  [[ "${public_status}" == "200" ]] || {
+    echo "ERROR: 线上资源 ${public_path} 返回 HTTP ${public_status}。" >&2
+    exit 1
+  }
+done
 
 echo "[7/7] 完成。"
 trap - ERR
