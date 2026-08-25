@@ -176,30 +176,54 @@ systemctl reload nginx
 
 echo "[5/7] 检查 HTTPS、证书域名和首页状态..."
 for domain_name in "${APEX_DOMAIN}" "${WWW_DOMAIN}"; do
-  status_code="$(curl -fsS -o /dev/null -w '%{http_code}' --retry 5 --retry-all-errors "https://${domain_name}/")"
-  [[ "${status_code}" == "200" ]]
+  status_code="$(
+    curl -sS -o /dev/null -w '%{http_code}' \
+      --resolve "${domain_name}:443:127.0.0.1" \
+      --retry 5 --retry-all-errors \
+      "https://${domain_name}/" || true
+  )"
+  [[ "${status_code}" == "200" ]] || {
+    echo "ERROR: 本机 Nginx 上的 ${domain_name} 返回 HTTP ${status_code}。" >&2
+    exit 1
+  }
 done
 
 certificate_names="$(
-  echo | openssl s_client -connect "${WWW_DOMAIN}:443" -servername "${WWW_DOMAIN}" 2>/dev/null \
+  echo | openssl s_client -connect "127.0.0.1:443" -servername "${WWW_DOMAIN}" 2>/dev/null \
     | openssl x509 -noout -ext subjectAltName
 )"
-grep -Fq -- "DNS:${APEX_DOMAIN}" <<<"${certificate_names}"
-grep -Fq -- "DNS:${WWW_DOMAIN}" <<<"${certificate_names}"
+grep -Fq -- "DNS:${APEX_DOMAIN}" <<<"${certificate_names}" || {
+  echo "ERROR: 当前证书不包含 ${APEX_DOMAIN}。" >&2
+  exit 1
+}
+grep -Fq -- "DNS:${WWW_DOMAIN}" <<<"${certificate_names}" || {
+  echo "ERROR: 当前证书不包含 ${WWW_DOMAIN}。" >&2
+  exit 1
+}
 
 echo "[6/7] 核对线上品牌、微信二维码与两条备案信息..."
-index_html="$(curl -fsS "https://${WWW_DOMAIN}/")"
+index_html="$(
+  curl -fsS \
+    --resolve "${WWW_DOMAIN}:443:127.0.0.1" \
+    --retry 5 --retry-all-errors \
+    "https://${WWW_DOMAIN}/"
+)"
 grep -Fq -- "<title>亚里士多翔的 AI 世界｜有用的AI课</title>" <<<"${index_html}" || {
   echo "ERROR: 线上首页仍不是亚里士多翔网站。" >&2
   exit 1
 }
-asset_path="$(grep -oE 'src="/[^"]+\\.js"' <<<"${index_html}" | head -n 1 | cut -d '"' -f 2)"
+asset_path="$(sed -n 's/.*src="\([^"]*\.js\)".*/\1/p' <<<"${index_html}" | head -n 1)"
 [[ -n "${asset_path}" ]] || {
   echo "ERROR: 线上首页没有找到 JavaScript 资源。" >&2
   exit 1
 }
 for public_path in "${asset_path}" "/wechat-qr.jpg" "/xiangge-profile.jpg"; do
-  public_status="$(curl -sS -o /dev/null -w '%{http_code}' "https://${WWW_DOMAIN}${public_path}" || true)"
+  public_status="$(
+    curl -sS -o /dev/null -w '%{http_code}' \
+      --resolve "${WWW_DOMAIN}:443:127.0.0.1" \
+      --retry 5 --retry-all-errors \
+      "https://${WWW_DOMAIN}${public_path}" || true
+  )"
   [[ "${public_status}" == "200" ]] || {
     echo "ERROR: 线上资源 ${public_path} 返回 HTTP ${public_status}。" >&2
     exit 1
