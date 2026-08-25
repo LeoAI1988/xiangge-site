@@ -249,7 +249,27 @@ export function LandingPage() {
         </section>
       </main>
 
-      <footer className="site-footer"><div><span>亚里士多翔的 AI 世界</span><span className="site-footer-links"><a href="#top">返回顶部</a><a className="icp-link" href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">粤ICP备2026089185号-2</a></span></div></footer>
+      <footer className="site-footer">
+        <div className="site-footer-inner">
+          <div className="site-footer-main">
+            <span>亚里士多翔的 AI 世界</span>
+            <a href="#top">返回顶部</a>
+          </div>
+          <div className="filing-links" aria-label="网站备案信息">
+            <a className="filing-link" href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">
+              粤ICP备2026089185号-2
+            </a>
+            <a
+              className="filing-link"
+              href="https://beian.mps.gov.cn/#/query/webSearch?code=44030002015092"
+              target="_blank"
+              rel="noreferrer"
+            >
+              粤公网安备44030002015092号
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

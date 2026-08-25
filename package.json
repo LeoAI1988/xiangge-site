@@ -9,10 +9,12 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "build:pages": "vite build --config vite.github-pages.config.ts",
+    "build:yaliaisol": "vite build --config vite.yaliaisol.config.ts",
     "start": "vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
     "test:pages": "npm run build:pages && node --test tests/github-pages.test.mjs",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "test:yaliaisol": "npm run build:yaliaisol && node --test tests/yaliaisol-build.test.mjs",
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern dist-pages --ignore-pattern dist-yaliaisol --ignore-pattern .next",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {

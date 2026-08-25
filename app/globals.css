@@ -146,10 +146,12 @@ p { line-height: 1.75; }
 .wechat-card > span { color: var(--muted); font-size: 16px; font-weight: 900; }
 .wechat-qr { display: block; width: min(100%,260px); height: auto; border: 0; border-radius: 10px; background: #fff; }
 .site-footer { padding: 22px clamp(20px,5vw,72px); background: var(--ink); color: #fff; }
-.site-footer > div { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: min(1180px,100%); margin: 0 auto; font-weight: 900; }
-.site-footer-links { display: inline-flex; align-items: center; gap: 18px; }
-.site-footer a { color: #ffd08c; }
-.icp-link { font-size: 13px; font-weight: 700; }
+.site-footer-inner { display: grid; gap: 12px; width: min(1180px,100%); margin: 0 auto; }
+.site-footer-main { display: flex; align-items: center; justify-content: space-between; gap: 18px; font-weight: 900; }
+.site-footer-main a { color: #ffd08c; }
+.filing-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.filing-link { color: rgba(255,255,255,.46); font-size: 12px; font-weight: 700; letter-spacing: .04em; text-decoration: none; transition: color 160ms ease; }
+.filing-link:hover, .filing-link:focus-visible { color: rgba(255,255,255,.82); }
 
 /* Admin */
 .admin-login label { display: grid; gap: 7px; font-weight: 850; }
@@ -233,8 +235,8 @@ tbody tr:hover, tbody tr.selected { background: #f0f8f5; }
   .course-grid article, .skill-grid article { min-height: 0; }
   .skill-category-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
   .bonus-feature .button, .skill-callout .button, .hero-actions .button { width: 100%; }
-  .site-footer > div { align-items: flex-start; flex-direction: column; }
-  .site-footer-links { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .site-footer-main { align-items: flex-start; flex-direction: column; }
+  .filing-links { align-items: flex-start; flex-direction: column; gap: 8px; }
   .admin-header { align-items: flex-start; }
   .admin-header .icon-text-button { width: 42px; padding: 9px; font-size: 0; }
   .toolbar-actions { display: grid; grid-template-columns: 1fr 1fr; }

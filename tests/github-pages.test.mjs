@@ -23,5 +23,8 @@ test("builds a GitHub Pages-only frontend with the QR contact flow", async () =>
   assert.match(scripts, /skill-downloads/);
   assert.match(scripts, /没有对比就看不清价值/);
   assert.match(scripts, /粤ICP备2026089185号-2/);
+  assert.match(scripts, /粤公网安备44030002015092号/);
+  assert.match(scripts, /beian\.miit\.gov\.cn/);
+  assert.match(scripts, /beian\.mps\.gov\.cn\/#\/query\/webSearch\?code=44030002015092/);
   assert.doesNotMatch(scripts, /13751196386|\/api\/leads/);
 });

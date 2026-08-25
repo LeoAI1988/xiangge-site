@@ -22,6 +22,10 @@ test("builds the public landing page with final branding", async () => {
   assert.match(landing, /2026超级个体AI生存手册/);
   assert.match(landing, /AI一人公司行动指南/);
   assert.match(landing, /courseChapters/);
+  assert.match(landing, /粤ICP备2026089185号-2/);
+  assert.match(landing, /粤公网安备44030002015092号/);
+  assert.match(landing, /https:\/\/beian\.miit\.gov\.cn\//);
+  assert.match(landing, /https:\/\/beian\.mps\.gov\.cn\/#\/query\/webSearch\?code=44030002015092/);
   assert.doesNotMatch(landing, /AI 观和课程介绍|REAL BUSINESS · REAL WORKFLOW/);
   assert.doesNotMatch(landing, /13751196386|navigator\.clipboard|copyMessage|复制微信号/);
   assert.doesNotMatch(landing, /<form className="lead-form"/);
