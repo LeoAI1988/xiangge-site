@@ -4,8 +4,10 @@
 
 ## 正式访问地址
 
-- 网站首页：https://xiangge-ai-workflow.gaoxiang19881119.chatgpt.site
+- 网站首页：https://leoai1988.github.io/xiangge-site/
 - 管理后台：https://xiangge-ai-workflow.gaoxiang19881119.chatgpt.site/admin
+
+2026-10-27：原 yaliaisol.com 展示页迁至上述 GitHub Pages 免费地址；yaliaisol.com 现用于家族传记网站。GitHub Pages 运行静态前台，历史管理后台仍沿用原地址。
 
 ## 当前功能
 
